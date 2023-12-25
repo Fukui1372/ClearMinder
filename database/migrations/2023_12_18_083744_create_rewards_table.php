@@ -12,11 +12,15 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('earned_points_histories', function (Blueprint $table) {
+     {
+        Schema::create('rewards', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('earned_date')->nullable();
-            $table->integer('earned_points');
+            $table->string('name');
+            $table->integer('required_points');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->softDeletes();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('earned_points_histories');
+        Schema::dropIfExists('rewards');
     }
 };

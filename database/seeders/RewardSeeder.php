@@ -11,12 +11,13 @@ class RewardSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('tasks')->insert([
+        DB::table('rewards')->insert([
             'name' =>'焼肉',
             'required_points'=>20,
             'created_at' =>new DateTime(),
             'updated_at' =>new DateTime(),
             'deleted_at'=>null,
+            "user_id"=>1
        ]);
     }
 }

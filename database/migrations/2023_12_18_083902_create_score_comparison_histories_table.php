@@ -15,12 +15,13 @@ return new class extends Migration
      {
         Schema::create('score_comparison_histories', function (Blueprint $table) {
             $table->id();
-            $table->integer('self_overall_score');
-            $table->integer('list_score');
-            $table->integer('concentration');
-            $table->integer('relaxation');
-            $table->integer('plannd_time_spending');
+            $table->unsignedInteger('self_overall_score');
+            $table->unsignedInteger('list_score');
+            $table->unsignedInteger('concentration');
+            $table->unsignedInteger('relaxation');
+            $table->unsignedInteger('planned_time_spending');
             $table->timestamp('comparison_date')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 

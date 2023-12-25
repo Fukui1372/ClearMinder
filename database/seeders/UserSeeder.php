@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use DateTime;
 
 class UserSeeder extends Seeder
@@ -14,7 +15,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' =>'Aさん',
             'email' =>'student@ac.jp',
-            'password' =>'1010',
+            'password' => Hash::make('1010'),
             'collected_points' =>10,
        ]);
     }

@@ -13,18 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('discription');
+            $table->string('description');
+            $table->timestamp('deadline')->nullable();
+            $table->boolean('is_completed');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
-            $table->timestamp('started_at')->nullable();
-            $table->timestamp('ended_at')->nullable();
+            $table->softDeletes();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('tasks');
     }
 };

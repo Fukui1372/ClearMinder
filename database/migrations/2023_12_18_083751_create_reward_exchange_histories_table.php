@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('reward_exchange_histories', function (Blueprint $table) {
-            $table->foreignId('users_id')->constrained()->onDelete('cascade');
-            //
+        Schema::create('reward_exchange_histories', function (Blueprint $table) {
+            $table->id();
+            $table->string('exchanged_reward');
+            $table->timestamp('exchanged_date')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -26,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('reward_exchange_histories', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('reward_exchange_histories');
     }
 };
