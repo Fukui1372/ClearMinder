@@ -13,7 +13,7 @@ class EventSeeder extends Seeder
     {
         DB::table("events")->insert([
             "name" =>"飲み会",
-            "discription" =>"バイト先の親睦会",
+            "description" =>"バイト先の親睦会",
             "created_at" =>new DateTime(),
             "updated_at" =>new DateTime(),
             "started_at"=>new DateTime(),
