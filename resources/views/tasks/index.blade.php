@@ -8,16 +8,21 @@
     </head>
 <body class="antialiased">
     <h1>タスク一覧</h1>
+    <a href = "/tasks/create">create</a>
         <div class = 'tasks'>
             @foreach ($tasks as $task)
                 <div class = 'task'>
-                    <h2 class = 'title' >{{ $task->title }}</h2>
-                        <p class = 'body' >{{$task->body}}</p>
+                    <h2 class = 'name' >{{ $task->name }}</h2>
+                        <h3>期日</h3>
+                            <p class = 'deadline' >{{$task->deadline}}</p>
                     </div>
                 @endforeach
             </div>
             <div class = 'paginate'>
                 {{ $tasks->links() }}
+            </div>
+            <div class ='edit'>
+                <a href = "/tasks/{{ $tasks->id }}/edit">edit</a>
             </div>
         </body>
     </html>
