@@ -29,6 +29,20 @@ class TaskController extends Controller
     
     public function edit(Task $task)
     {
-        return view('tasks/edit')->with(['task' =>$task]);    
+         return view('tasks.edit')->with(['task' => $task]);
+    }
+    
+    public function update(Taskrequest $request, Task $task)
+    {
+        $input_task = $request['task'];
+        $task->fill($input_task)->save();
+        
+        return redirect('/');
+    }
+    
+    public function delete(Task $task)
+    {
+        $task->delete();
+        return redirect('/');
     }
 }

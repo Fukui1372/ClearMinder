@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>タスク作成</title>
-    </head>
+<x-app-layout>
+    <x-slot name="header">
+        {{ 'タスク作成' }}
+    </x-slot>
 <body>
-    <h1>タスク作成</h1>
         <form action = "/tasks" method = "POST">
             @csrf
         <div class = "name">
@@ -24,4 +22,5 @@
                 <a href = "/">戻る</a>
             </div>
         </body>
-    </html>
+    </x-app-layout>
+</html>
