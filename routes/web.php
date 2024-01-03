@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\EventController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -15,6 +16,7 @@ Route::controller(TaskController::class)->middleware(['auth'])->group(function()
     Route::get('/tasks/{task}/edit', 'edit')->name('edit');
     Route::put('/tasks/{task}', 'update')->name('update');
     Route::delete('/tasks/{task}', 'delete')->name('delete');
+    Route::get('/calendar', [EventController::class, 'show'])->name("show");
 });
 
 Route::middleware('auth')->group(function () {
