@@ -25,4 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/calendar/create', [EventController::class, 'create'])->name("create");
+Route::post('/calendar/get', [EventController::class, 'get'])->name("get");// DBに登録した予定を取得
+
 require __DIR__.'/auth.php';
