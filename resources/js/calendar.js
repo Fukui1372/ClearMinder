@@ -5,6 +5,15 @@ import { Calendar } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
 
+// 日付を-1してYYYY-MM-DDの書式で返すメソッド
+function formatDate(date, pos) {
+    var dt = new Date(date);
+    if(pos==="end"){
+        dt.setDate(dt.getDate() - 1);
+    }
+    return dt.getFullYear() + '-' +('0' + (dt.getMonth()+1)).slice(-2)+ '-' +  ('0' + dt.getDate()).slice(-2);
+}
+
 // カレンダーを表示させたいタグのidを取得
 var calendarEl = document.getElementById("calendar");
 
@@ -63,6 +72,20 @@ if (calendarEl !== null) {
                 console.log(error);
             });
         },
+        // 予定をクリックすると予定編集モーダルが表示される
+    eventClick: function(info) {
+        //console.log(info.event.name);//
+        document.getElementById("id").value = info.event.id;
+        document.getElementById("delete-id").value = info.event.id;
+        document.getElementById("event_name").value = info.event.title;
+        document.getElementById("start_date").value = formatDate(info.event.start);
+        document.getElementById("end_date").value = formatDate(info.event.end, "end");
+        document.getElementById("event_description").value = info.event.extendedProps.description;
+        document.getElementById("event_color").value = info.event.backgroundColor;
+
+        // 予定編集モーダルを開く
+        document.getElementById('modal-update').style.display = 'flex';
+        },
     });
     
     // カレンダーのレンダリング
@@ -71,5 +94,17 @@ if (calendarEl !== null) {
     //新規予定追加モーダルを閉じる
     window.closeAddModal = function() {
         document.getElementById('modal-add').style.display = 'none';
+    }
+    // 予定編集モーダルを閉じる
+window.closeUpdateModal = function(){
+    document.getElementById('modal-update').style.display = 'none';
+}    
+
+    window.deleteEvent = function(){
+    'use strict'
+
+    if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+        document.getElementById('delete-form').submit();
+        }
     }
 }

@@ -65,11 +65,16 @@ select{
     border: 1px solid black;
     border-radius: 5px;
 }
+/* 予定の上ではカーソルがポインターになる */
+.fc-event-title-container{
+    cursor: pointer;
+}
 </style>
     </head>
     <body>
         <!-- 以下のdivタグ内にカレンダーを表示 -->
         <div id='calendar'></div>
+        <!-- カレンダー新規追加モーダル -->
             <div id="modal-add" class="modal">
                 <div class="modal-contents">
                     <form method="POST" action="{{ route('create') }}">
@@ -93,5 +98,37 @@ select{
                     </form>
                 </div>
             </div>
+        <!-- カレンダー編集モーダル -->
+        <div id = "modal-update" class="modal">
+            <div class ="modal-contents">
+                <form method="POST" action="{{ route('update') }}">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" id="id" name="id" value="" />
+                    <label for="event_name">イベント名</label>
+                    <input class="input-name" type="text" id="event_name" name="event_name" value="" />
+                    <label for="start_date">開始日時</label>
+                    <input class="input-date" type="date" id="start_date" name="start_date" value="" />
+                    <label for="end_date">終了日時</label>
+                    <input class="input-date" type="date" id="end_date" name="end_date" value="" />
+                    <label for="event_description" style="display: block">メモ</label>
+                    <textarea id="event_description" name="event_description" rows="3" value=""></textarea>
+                    <label for="event_color">背景色</label>
+                    <select id="event_color" name="event_color">
+                        <option value="blue">青</option>
+                        <option value="green">緑</option>
+                    </select>
+                    <button type="button" onclick="closeUpdateModal()">キャンセル</button>
+                    <button type="submit">決定</button>
+                </form>
+                <!-- カレンダー削除　-->
+                <form id="delete-form" method="POST" action="{{ route('delete') }}">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" id="delete-id" name="id" value="" />
+                    <button class="delete" type="button" onclick="deleteEvent()">削除</button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

@@ -64,4 +64,33 @@ class EventController extends Controller
             ->where('started_at', '<', $end_date)//AND条件
             ->get();
     }
+    
+     // 予定の更新
+    public function update(Request $request, Event $event){
+        $input = new Event();
+        
+        $input->name = $request->input('event_name');
+        $input->description = $request->input('event_description');
+        $input->started_at = date("Y-m-d", strtotime("{$request->input('start_date')}")); 
+        $input->ended_at = date("Y-m-d", strtotime("{$request->input('end_date')} +1 day")); // FullCalendarが登録する終了日は仕様で1日ずれるので、その修正を行っている
+        $input->event_color = $request->input('event_color');
+        $input->event_border_color = $request->input('event_color');
+        $input->user_id = $request->user()->id;
+        
+        // 更新する予定をDBから探し（find）、内容が変更していたらupdated_timeを変更（fill）して、DBに保存する（save）
+        $event->find($request->input('id'))->fill($input->attributesToArray())->save(); // fill()の中身はArray型が必要だが、$inputのままではコレクションが返ってきてしまうため、Array型に変換
+        
+        // カレンダー表示画面にリダイレクトする
+        return redirect(route("show"));
+    }
+
+
+    //予定の削除
+    public function delete(Request $request, Event $event) {
+        //削除する予定をDBから探し（find）、DBから物理削除する（delete）
+        $event->find($request->input('id'))->delete();
+        
+        //カレンダー表示画面にリダイレクトする
+        return redirect(route("show"));
+    }
 }
