@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Http\Requests\TaskRequest;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -45,4 +46,28 @@ class TaskController extends Controller
         $task->delete();
         return redirect('/');
     }
+    
+    public function weekly(Task $task){
+        $from=Carbon::today()->subDay(date('w'))->timezone('Asia/Tokyo');
+        $to=Carbon::today()->addDay(6-date('w'))->timezone('Asia/Tokyo');
+        $tasks = $task->whereDate('deadline', '>=', $from)->whereDate('deadline', '<=', $to)->orderby('deadline', 'asc' )->get();
+        
+        $tasks->transform(function ($task) {
+            $task->deadline =Carbon::parse($task->deadline);
+            return $task;
+        });
+        
+        return view('tasks.weekly')->with(['tasks' => $tasks, 'from' => $from, 'to' => $to]);
+    }
+    
+    public function showTodayTasks(Task $task){
+    $todayTasks = $task->whereDate('deadline', today())->get();
+    
+    $todayTasks->transform(function ($task) {
+        $task->deadline =Carbon::parse($task->deadline);
+        return $task;
+    });
+    
+    return view('tasks.today')->with(['todayTasks' => $todayTasks]);
+}
 }
