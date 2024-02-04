@@ -1,8 +1,7 @@
 <!-- calendar.blade.php -->
-
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
+<x-app-layout>
+    <x-slot name="header">
+        　{{ 'カレンダー' }}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>FullCalendar</title>
@@ -71,6 +70,7 @@ select{
 }
 </style>
     </head>
+        </x-slot>
     <body>
         <!-- 以下のdivタグ内にカレンダーを表示 -->
         <div id='calendar'></div>
@@ -131,4 +131,5 @@ select{
             </div>
         </div>
     </body>
+    </x-app-layout>
 </html>
