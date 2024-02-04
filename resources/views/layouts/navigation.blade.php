@@ -12,8 +12,20 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                   <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('calendar')" :active="request()->routeIs('calendar')">
+                        {{ __('カレンダー') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                        {{ __('タスク一覧') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('showTodayTasks')" :active="request()->routeIs('showTodayTasks')">
+                        {{ __('当日リスト') }}
+                    </x-nav-link>
+                     <x-nav-link :href="route('weekly')" :active="request()->routeIs('weekly')">
+                        {{ __('週間リスト') }}
                     </x-nav-link>
                 </div>
             </div>

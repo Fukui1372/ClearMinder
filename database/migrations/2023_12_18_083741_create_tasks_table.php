@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
             $table->timestamp('deadline')->nullable();
-            $table->boolean('is_completed');
+            $table->boolean('is_completed')->default(false);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes();
