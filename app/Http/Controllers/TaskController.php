@@ -61,13 +61,19 @@ class TaskController extends Controller
     }
     
     public function showTodayTasks(Task $task){
-    $todayTasks = $task->whereDate('deadline', today())->get();
+        $todayTasks = $task->whereDate('deadline', today())->get();
+        
+        $todayTasks->transform(function ($task) {
+            $task->deadline =Carbon::parse($task->deadline);
+            return $task;
+        });
+        
+        return view('tasks.today')->with(['todayTasks' => $todayTasks]);
+    }
     
-    $todayTasks->transform(function ($task) {
-        $task->deadline =Carbon::parse($task->deadline);
-        return $task;
-    });
-    
-    return view('tasks.today')->with(['todayTasks' => $todayTasks]);
-}
+    public function showSelectedDay($date, Task $task) {
+        $selectedDay = new Carbon($date);
+        $tasks = $task->whereDate('deadline', $selectedDay)->get();
+        return view('tasks.selected')->with(['date' => $date, 'tasks' =>$tasks]);
+    }
 }
