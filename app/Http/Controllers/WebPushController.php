@@ -33,4 +33,13 @@ class WebPushController extends Controller
             'success' => true
         ], 200);
     }
+    
+    public function stress(Request $request) {
+        $user = $request->user();
+        $body = $request->restTime . "分間休憩してください";
+        $url = $request->url;
+        $user->notify(new \App\Notifications\EventAdded('休憩しましょう', $body, $url));
+        return response()->json($user);
+        //\Notification::send($user, new \App\Notifications\EventAdded('休憩しましょう', $body, $url));
+    }
 }

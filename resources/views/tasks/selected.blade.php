@@ -82,6 +82,17 @@
                 count++;
                 if (count % 2 !== 0) {
             　　　//休憩
+            　  //休憩時間を通知
+                  axios.post('/web_push/stress', {
+                    restTime: rest.value,
+                    url: window.location.pathname, 
+                  })
+                  .catch((error) => {
+                    //バリデーションエラーなど
+                    //alert("登録に失敗しました。");
+                    console.log(error);
+                  });
+                  
                   setLastMinutes(Number(rest.value));
                 } else {
                  //勉強

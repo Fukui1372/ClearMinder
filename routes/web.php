@@ -41,7 +41,4 @@ require __DIR__.'/auth.php';
 Route::get('web_push/create', [WebPushController::class, 'create'])->name('web_push.create');
 Route::post('web_push', [WebPushController::class, 'store'])->name('web_push.store');
 // 全ユーザーにプッシュ通知を試みる
-Route::get('web_push_test', function(){
-    $users = \App\Models\User::all();
-    \Notification::send($users, new \App\Notifications\EventAdded('タスク', '数学の課題', '/tasks/today'));
-});
+Route::post('web_push/stress', [WebPushController::class, 'stress']);
