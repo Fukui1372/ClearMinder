@@ -16,7 +16,7 @@
                 <p>週間に対応するタスクはありません。</p>
             @endif
             </div>
-      <div class="time">
+          <div class="time">
             <h1>ポモドーロタイマー<h1>
             <form name="e" action="" class="form">
                 <div class="setTimer">
@@ -24,7 +24,7 @@
                     <span class="koron">:</span>
                     <select id="rest"></select>
                 </div>
-        </select>
+            </select>
                 <button
                     type="button"
                     onclick="startTimer()"
