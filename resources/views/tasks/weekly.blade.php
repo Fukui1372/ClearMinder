@@ -24,7 +24,7 @@
                     <span class="koron">:</span>
                     <select id="rest"></select>
                 </div>
-        </select>
+            </select>
                 <button
                     type="button"
                     onclick="startTimer()"
