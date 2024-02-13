@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         \URL::forceScheme('https');
         $this->app['request']->server->set('HTTPS', 'on');
+        //$test_dt = Carbon::create(2024, 2, 13, 6, 59, 50);
+        //Carbon::setTestNow($test_dt);
     }
 }
