@@ -3,43 +3,113 @@
         {{ '当日To Doリスト' }}
     </x-slot>
 
-    <body class="antialiased">
+    <x-slot name="slot">
         <div class="container">
-            <h1>当日のタスク</h1>
             @if($todayTasks->count() > 0)
                 <ul>
                     @foreach($todayTasks as $task)
                         <li>{{ $task->name }} - 期日: {{ $task->deadline->format('Y-m-d H:i') }}</li>
                     @endforeach
                 </ul>
-
-                <!-- ポモドーロタイマーボタン -->
-                <button id="startPomodoro">ポモドーロタイマーを開始する</button>
             @else
                 <p>当日のタスクはありません。</p>
             @endif
         </div>
-    </body>
-
-    @section('scripts')
-        @parent
-
+        <div class="time">
+            <h1>ポモドーロタイマー<h1>
+            <form name="e" action="" class="form">
+                <div class="setTimer">
+                    <select id="study"></select>
+                    <span class="koron">:</span>
+                    <select id="rest"></select>
+                </div>
+        </select>
+                <button
+                    type="button"
+                    onclick="startTimer()"
+                    class="start"
+                >
+                    スタート
+                </button>
+            </form>
+            <form name="f" action="" class="form2">
+              <input type="text" name="days" size="25" class="timer" />
+              <input type="hidden" class="timeHour" />
+            </form>
+        </div>
         <script>
-            document.getElementById('startPomodoro').addEventListener('click', function() {
-                if (confirm('ポモドーロタイマーを開始しますか？（開始後はページを閉じないで下さい）')) {
-                    startPomodoroTimer();
+            let millenium;
+            let count = 0;
+            let study = document.getElementById("study");
+            let rest = document.getElementById("rest");
+            
+            //タイマーのデフォルト値設定
+            function time(value) {
+              for (let i = 0; i < 60; i++) {
+                let option = `<option value="${i}">${i}</option>`;
+                if (i == 25) {
+                  if (value == "study") {
+                    option = `<option value="${i}" selected>${i}</option>`;
+                  }
+                } else if (i == 5) {
+                  if (value == "rest") {
+                    option = `<option value="${i}" selected>${i}</option>`;
+                  }
                 }
-            });
-
-            function startPomodoroTimer() {
-                setTimeout(function() {
-                    sendPushNotification();
-                }, 25 * 60 * 1000); // 25分後
+                document.getElementById(`${value}`).insertAdjacentHTML("beforeend", option);
+              }
             }
-
-            function sendPushNotification() {
-                alert('25分経ちました。5分間休憩してください。');
+            time("study");
+            time("rest");
+            
+            //カウントダウン先の日時の取得
+            function setLastMinutes(max) {
+              millenium = new Date();
+              millenium.setMinutes(millenium.getMinutes() + max);
+            }
+            
+            //カウントダウンの表示
+            function display() {
+              let today = new Date();
+              let hour;
+            
+              if (!millenium) {
+                //勉強
+                setLastMinutes(Number(study.value));
+              }
+              if (millenium < today) {
+                count++;
+                if (count % 2 !== 0) {
+            　　　//休憩
+                  setLastMinutes(Number(rest.value));
+                } else {
+                 //勉強
+                  setLastMinutes(Number(study.value));
+                }
+              }
+            
+              let milliSec = millenium - today;
+            　//分
+              time2 = Math.floor(milliSec / (60 * 1000));
+            　//秒
+              time3 = Math.floor(milliSec / 1000) % 60;
+            
+              times2 = ("00" + time2).slice(-2);
+              times3 = ("00" + time3).slice(-2);
+            
+              document.f.days.value = times2 + ":" + times3;
+            
+              document.f.days.style.display = "block";
+          
+            　
+            　//1秒ごとに処理を実行
+              tid = setTimeout("display()", 1000);
+            }
+            function startTimer() {
+              if (confirm("ポモドーロタイマーを開始しますか？\n（タイマーを開始後はこのページを閉じたり再読み込みしないでください）")) {
+                  display();
+              }
             }
         </script>
-    @endsection
+    </x-slot>
 </x-app-layout>
