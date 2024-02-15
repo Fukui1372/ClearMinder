@@ -8,6 +8,7 @@ use Google_Client;
 use Google_Service_Calendar;
 use Google_Service_Calendar_Event;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -66,6 +67,7 @@ class EventController extends Controller
                 'event_border_color as borderColor'
             )
             //表示されているカレンダーのeventのみをDBから検索して表示
+            ->where('user_id', Auth::id())
             ->where('ended_at', '>', $start_date)
             ->where('started_at', '<', $end_date)//AND条件
             ->get();

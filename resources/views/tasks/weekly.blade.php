@@ -17,7 +17,7 @@
             @endif
         </div>
         <div class="time">
-            <h1>ポモドーロタイマー<h1>
+            <h1>タスク消化タイマー(作業時間：休憩時間)<h1>
             <form name="e" action="" class="form">
                 <div class="setTimer">
                     <select id="study"></select>
@@ -119,7 +119,7 @@
               tid = setTimeout("display()", 1000);
             }
             function startTimer() {
-              if (confirm("ポモドーロタイマーを開始しますか？\n（タイマーを開始後はこのページを閉じたり再読み込みしないでください）")) {
+              if (confirm("ポモドーロタイマーを開始しますか？\n（開始後はこのページを閉じたり再読み込みしないでください）")) {
                   display();
               }
             }
