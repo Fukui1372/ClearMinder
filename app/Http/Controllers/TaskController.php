@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Http\Requests\TaskRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -50,7 +51,7 @@ class TaskController extends Controller
     public function weekly(Task $task){
         $from=Carbon::today()->subDay(date('w'))->timezone('Asia/Tokyo');
         $to=Carbon::today()->addDay(6-date('w'))->timezone('Asia/Tokyo');
-        $tasks = $task->whereDate('deadline', '>=', $from)->whereDate('deadline', '<=', $to)->orderby('deadline', 'asc' )->get();
+        $tasks = $task->whereDate('deadline', '>=', $from)->whereDate('deadline', '<=', $to)->orderby('deadline', 'asc' )->where('user_id', Auth::id())->get();
         
         $tasks->transform(function ($task) {
             $task->deadline =Carbon::parse($task->deadline);
@@ -61,10 +62,9 @@ class TaskController extends Controller
     }
     
     public function showTodayTasks(Task $task){
-        $todayTasks = $task->whereDate('deadline', today())->get();
-        
+        $todayTasks = $task->whereDate('deadline', today())->orderby('deadline', 'asc' )->where('user_id', Auth::id())->get();
         $todayTasks->transform(function ($task) {
-            $task->deadline =Carbon::parse($task->deadline);
+            $task->deadline =Carbon::parse($task->deadline)->timezone('Asia/Tokyo');
             return $task;
         });
         
@@ -73,7 +73,7 @@ class TaskController extends Controller
     
     public function showSelectedDay($date, Task $task) {
         $selectedDay = new Carbon($date);
-        $tasks = $task->whereDate('deadline', $selectedDay)->get();
+        $tasks = $task->whereDate('deadline', $selectedDay)->where('user_id', Auth::id())->get();
         return view('tasks.selected')->with(['date' => $date, 'tasks' =>$tasks]);
     }
 }
