@@ -18,17 +18,17 @@
 https://clearminder-b48c1251c310.herokuapp.com/
 
 ## 使い方
-従来のシンプルなTo Doリストアプリ、カレンダー機能アプリとして利用する。
+従来のシンプルなTo Doリストアプリ、カレンダー機能アプリとして利用する。  
 タスクに長時間集中できない人や継続できない人、予定を上手く管理できない人などは、本アプリのストレス管理機能やイベント入力し忘れ防止機能を活用してみる。
 
 
 ## 使用技術
 ### フロントエンド
 
-・HTML
-・tailwind
-・Javascript(FullCalendar)
-・axios
+・HTML  
+・tailwind  
+・Javascript(FullCalendar)  
+・axios  
 
 ### バックエンド
 
