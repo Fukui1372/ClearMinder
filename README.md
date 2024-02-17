@@ -27,7 +27,7 @@ https://clearminder-b48c1251c310.herokuapp.com/
 
 ・HTML  
 ・tailwind  
-・Javascript(FullCalendar)  
+・JavaScript (FullCalendar)  
 ・axios  
 
 ### バックエンド
