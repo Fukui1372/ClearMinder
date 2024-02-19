@@ -3,8 +3,7 @@
     <x-slot name="header">
         {{ '週間To Doリスト' }}
     </x-slot>
-        <div class="container">
-            <h1>週間タスク</h1>
+        <div class="space-y-6  m-4"="container">
             <p>週の期間: {{ $from->format('Y-m-d') }} から {{ $to->format('Y-m-d') }}</p>
             @if($tasks->count() > 0)
                 <ul>
@@ -16,27 +15,27 @@
                 <p>週間に対応するタスクはありません。</p>
             @endif
         </div>
-        <div class="time">
+        <div class="space-y-4  m-4"="time">
             <h1>タスク消化タイマー(作業時間：休憩時間)<h1>
             <form name="e" action="" class="form">
-                <div class="setTimer">
+                <div classs="space-y-4  m-3"="setTimer">
                     <select id="study"></select>
                     <span class="koron">:</span>
                     <select id="rest"></select>
                 </div>
           </select>
+            </form>
+            <form name="f" action="" class="space-y-3  m-3 w-20"="form2">
+              <input type="text" name="days" size="25" class="timer py-1 px-2"="timer" />
+              <input type="hidden" class="timeHour" />
+            </form>
                 <button
                     type="button"
                     onclick="startTimer()"
-                    class="start"
+                    class="bg-gray-900 hover:bg-gray-800 text-white rounded px-3 py-2 inline-block align-middle"="start"
                 >
                     スタート
                 </button>
-            </form>
-            <form name="f" action="" class="form2">
-              <input type="text" name="days" size="25" class="timer" />
-              <input type="hidden" class="timeHour" />
-            </form>
         </div>
         <script>
             let millenium;

@@ -67,8 +67,8 @@ select{
         <div id="app">
             <div v-if="processing">処理中...</div>
             <div v-else>
-                <button type="button" @click="subscribe" v-if="!isSubscribed" class="border p-3 m-3">イベントのプッシュ通知を登録する</button>
-                <button type="button" @click="unsubscribe" v-else class="border p-3 m-3">イベントのプッシュ通知を解除する</button>
+                <button type="button" @click="subscribe" v-if="!isSubscribed" class="bg-gray-900 hover:bg-gray-800 text-white rounded px-4 py-2 inline-block align-middle m-3">イベントのプッシュ通知を登録する</button>
+                <button type="button" @click="unsubscribe" v-else class="bg-gray-900 hover:bg-gray-800 text-white rounded px-4 py-2 inline-block align-middle m-3">イベントのプッシュ通知を解除する</button>
             </div>
         </div>
         <!-- 以下のdivタグ内にカレンダーを表示 -->
