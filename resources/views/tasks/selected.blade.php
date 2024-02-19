@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="slot">
-            <div class="container">
+            <div class="container space-y-6  m-4">
                 <h1>{{$date}}のタスク</h1>
                 @if($tasks->count() > 0)
                     <ul>
@@ -16,27 +16,27 @@
                     <p>{{$date}}のタスクはありません。</p>
                 @endif
         </div>
-        <div class="time">
+        <div class="time space-y-4  m-4">
             <h1>タスク消化タイマー(作業時間：休憩時間)<h1>
             <form name="e" action="" class="form">
-                <div class="setTimer">
+                <div class="setTimer space-y-4  m-3">
                     <select id="study"></select>
                     <span class="koron">:</span>
                     <select id="rest"></select>
                 </div>
         </select>
-                <button
-                    type="button"
-                    onclick="startTimer()"
-                    class="start"
-                >
-                    スタート
-                </button>
-            </form>
-            <form name="f" action="" class="form2">
-              <input type="text" name="days" size="25" class="timer" />
-              <input type="hidden" class="timeHour" />
-            </form>
+          </form>
+        <form name="f" action="" class="form2 space-y-3  m-3 w-20">
+          <input type="text" name="days" size="25" class="timer" />
+          <input type="hidden" class="timeHour" />
+        </form>
+        <button
+          type="button"
+          onclick="startTimer()"
+          class="start bg-gray-900 hover:bg-gray-800 text-white rounded px-3 py-2 inline-block align-middle"
+        >
+          スタート
+        </button>
         </div>
         <script>
             let millenium;
